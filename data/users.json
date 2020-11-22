@@ -1,0 +1,64 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Akibur Rahman",
+      "isActive": true,
+      "lastLoginTime": "Nov 22, 2020"
+    },
+    {
+      "id": "2",
+      "name": "Jim Rose",
+      "isActive": true,
+      "lastLoginTime": "Nov 23, 2020"
+    },
+    {
+      "id": "3",
+      "name": "Jordan Henry",
+      "isActive": false,
+      "lastLoginTime": "Nov 02, 2019"
+    },
+    {
+      "id": "4",
+      "name": "Jhon Alex",
+      "isActive": true,
+      "lastLoginTime": "Nov 22, 2020"
+    },
+    {
+      "id": "5",
+      "name": "Andrew Ray",
+      "isActive": false,
+      "lastLoginTime": "Jan 01, 2019"
+    },
+    {
+      "id": "6",
+      "name": "Bard Henry",
+      "isActive": true,
+      "lastLoginTime": "Sat Nov 21 2020"
+    },
+    {
+      "id": "7",
+      "name": "Micheal James",
+      "isActive": true,
+      "lastLoginTime": "Nov 22, 2020"
+    },
+    {
+      "id": "8",
+      "name": "Brandon Alex",
+      "isActive": false,
+      "lastLoginTime": "Nov 22, 2020"
+    },
+    {
+      "id": "9",
+      "name": "Criss Josh",
+      "isActive": true,
+      "lastLoginTime": "Nov 22, 2020"
+    },
+    {
+      "id": "10",
+      "name": "Peter Mosh",
+      "isActive": false,
+      "lastLoginTime": "Nov 22, 2020"
+    }
+  ]
+}
