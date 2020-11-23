@@ -1,12 +1,14 @@
+import PropTypes from 'prop-types';
+
 import Header from '../../components/Header';
 import Card from '../../components/Card';
 import Thead from '../../components/THead';
 import TRow from '../../components/TRow';
-import { users } from '../../data/users.json';
+import { users as usersData } from '../../data/users.json';
 
 const tableHeads = ['Name', 'Title', 'Status', 'Last Login Time', ''];
 
-export default function Dashboard() {
+export default function Dashboard({ users }) {
   return (
     <>
       <Header />
@@ -54,3 +56,12 @@ export default function Dashboard() {
     </>
   );
 }
+
+export async function getStaticProps() {
+  // server request logic goes here
+  return { props: { users: usersData } };
+}
+
+Dashboard.propTypes = {
+  users: PropTypes.array.isRequired,
+};
