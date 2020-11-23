@@ -24,7 +24,7 @@ function Dashboard({ users }) {
     <>
       <Header />
       <div className='container'>
-        <div className='px-3 pt-4 pb-4 flex justify-end'>
+        <div className='px-3 pt-4 pb-4 flex justify-end items-center'>
           <div className='px-2 py-2 flex rounded-full justify-center items-center border border-transparent hover:border-gray-200'>
             <img
               className='h-8 w-8 rounded-full object-cover mx-1'
@@ -33,7 +33,7 @@ function Dashboard({ users }) {
             />
             <span>Alex</span>
           </div>
-          <button onClick={() => handleLogout()} className='px-2 py-2' type='button'>
+          <button onClick={() => handleLogout()} className='px-2 py-2 ml-1 bg-red-400 rounded text-white hover:bg-red-500' type='button'>
             Logout
           </button>
         </div>

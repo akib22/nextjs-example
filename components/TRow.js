@@ -43,10 +43,9 @@ export default function TRow({ user }) {
       <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200'>{user.lastLoginTime}</td>
       <td className='px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium'>
         <Link
-          className='text-indigo-600 hover:text-indigo-900'
           href={`/users/${user.id}`}
         >
-          View Profile
+          <a className='text-indigo-500 hover:text-indigo-600'>View Profile</a>
         </Link>
       </td>
     </tr>
