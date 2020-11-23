@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 
+import { useAuth } from '../../context/auth';
 import Header from '../../components/Header';
+import AuthRoute from '../../components/AuthRoute';
 import { users } from '../../data/users.json';
 
-export default function User({ user }) {
+function User({ user }) {
   let statusClass = 'px-2 py-1 inline-flex text-md leading-5 font-semibold rounded-full';
   statusClass += user.isActive ? ' bg-green-100 text-green-800' : ' bg-red-100 text-red-800';
   const lastName = user.name.split(' ')[1].toLowerCase();
@@ -49,6 +52,8 @@ export default function User({ user }) {
     </>
   );
 }
+
+export default AuthRoute(User);
 
 export async function getStaticPaths() {
   const paths = users.map((user) => ({ params: { userId: user.id } }));

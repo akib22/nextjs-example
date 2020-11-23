@@ -1,12 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 
+import { useAuth } from '../context/auth';
 import Header from '../components/Header';
 import { admins } from '../data/admin.json';
 
 export default function Login() {
+  const { dispatch, state, loading } = useAuth();
+
   const router = useRouter();
+
+  useEffect(() => {
+    if (state.isAuth) {
+      router.push('/admin/dashboard');
+    }
+  }, [state]);
+
   const {
     register, handleSubmit, errors, formState,
   } = useForm();
@@ -20,6 +30,7 @@ export default function Login() {
       return setIsUserOrPassMissMatch(true);
     }
 
+    dispatch({ type: 'LOGIN', user: admin });
     return router.push('/admin/dashboard');
   }
 

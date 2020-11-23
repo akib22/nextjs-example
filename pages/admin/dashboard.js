@@ -1,14 +1,25 @@
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 
+import { useAuth } from '../../context/auth';
 import Header from '../../components/Header';
 import Card from '../../components/Card';
 import Thead from '../../components/THead';
 import TRow from '../../components/TRow';
+import AuthRoute from '../../components/AuthRoute';
 import { users as usersData } from '../../data/users.json';
 
 const tableHeads = ['Name', 'Title', 'Status', 'Last Login Time', ''];
 
-export default function Dashboard({ users }) {
+function Dashboard({ users }) {
+  const { dispatch } = useAuth();
+  const router = useRouter();
+
+  function handleLogout() {
+    dispatch({ type: 'LOGOUT' });
+    return router.push('/login');
+  }
+
   return (
     <>
       <Header />
@@ -22,7 +33,7 @@ export default function Dashboard({ users }) {
             />
             <span>Alex</span>
           </div>
-          <button className='px-2 py-2' type='button'>
+          <button onClick={() => handleLogout()} className='px-2 py-2' type='button'>
             Logout
           </button>
         </div>
@@ -56,6 +67,8 @@ export default function Dashboard({ users }) {
     </>
   );
 }
+
+export default AuthRoute(Dashboard);
 
 export async function getStaticProps() {
   // server request logic goes here
