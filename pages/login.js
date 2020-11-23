@@ -1,14 +1,26 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 
 import Header from '../components/Header';
+import { admins } from '../data/admin.json';
 
 export default function Login() {
-  const { register, handleSubmit, errors } = useForm();
+  const router = useRouter();
+  const {
+    register, handleSubmit, errors, formState,
+  } = useForm();
+  const [isUserOrPassMissMatch, setIsUserOrPassMissMatch] = useState(false);
   const isEmailError = errors.email && (errors.email.type === 'required' || errors.email.type === 'pattern');
   const isPasswordError = errors.password && (errors.password.type === 'required' || errors.password.type === 'minLength');
 
   function onSubmit(data) {
-    console.log(data, errors);
+    const admin = admins.filter((item) => item.email === data.email)[0];
+    if (!admin || admin.password !== data.password) {
+      return setIsUserOrPassMissMatch(true);
+    }
+
+    return router.push('/admin/dashboard');
   }
 
   return (
@@ -59,7 +71,11 @@ export default function Login() {
               <p className="py-1 text-xs text-red-500">Password length should be at least 5 characters.</p>
             )}
           </div>
+          {isUserOrPassMissMatch && (
+            <p className="py-1 text-xs text-red-500">User/Password didn't match.</p>
+          )}
           <button
+            disabled={formState.isSubmitting}
             className='bg-blue-400 hover:bg-blue-600 text-white font-bold float-right mt-3 py-2 px-4 rounded'
             type='submit'
           >
