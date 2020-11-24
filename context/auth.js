@@ -4,10 +4,8 @@ import {
   createContext,
   useContext,
   useReducer,
-  useState,
   useEffect,
 } from 'react';
-import { useRouter } from 'next/router';
 
 const AuthContext = createContext();
 AuthContext.displayName = 'AuthContext';
@@ -44,24 +42,20 @@ function authReducer(state, action) {
 }
 
 function AuthProvider({ children }) {
-  const [loading, setLoading] = useState(true);
-  const [isAlreadyLoggedIn, setIsAlreadyLoggedIn] = useState(false);
   const [state, dispatch] = useReducer(authReducer, { user: null, isAuth: false });
 
-  useEffect(async () => {
-    async function loadUserFromStorage() {
+  useEffect(() => {
+    function loadUserFromStorage() {
       const user = localStorage.getItem('user');
       if (user) {
-        await dispatch({ type: 'LOAD_USER', user });
-        setIsAlreadyLoggedIn(true);
+        dispatch({ type: 'LOAD_USER', user });
       }
-      setLoading(false);
     }
-    await loadUserFromStorage();
+    loadUserFromStorage();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ state, dispatch, loading, isAlreadyLoggedIn }}>
+    <AuthContext.Provider value={{ state, dispatch }}>
       {children}
     </AuthContext.Provider>
   );
