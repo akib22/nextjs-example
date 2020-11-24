@@ -7,7 +7,7 @@ import Header from '../components/Header';
 import { admins } from '../data/admin.json';
 
 export default function Login() {
-  const { dispatch, state, loading } = useAuth();
+  const { dispatch, state } = useAuth();
 
   const router = useRouter();
 
@@ -17,12 +17,15 @@ export default function Login() {
     }
   }, [state]);
 
-  const {
-    register, handleSubmit, errors, formState,
-  } = useForm();
+  const { register, handleSubmit, errors, formState } = useForm();
   const [isUserOrPassMissMatch, setIsUserOrPassMissMatch] = useState(false);
-  const isEmailError = errors.email && (errors.email.type === 'required' || errors.email.type === 'pattern');
-  const isPasswordError = errors.password && (errors.password.type === 'required' || errors.password.type === 'minLength');
+  const isEmailError =
+    errors.email &&
+    (errors.email.type === 'required' || errors.email.type === 'pattern');
+  const isPasswordError =
+    errors.password &&
+    (errors.password.type === 'required' ||
+      errors.password.type === 'minLength');
 
   function onSubmit(data) {
     const admin = admins.filter((item) => item.email === data.email)[0];
@@ -34,17 +37,26 @@ export default function Login() {
     return router.push('/admin/dashboard');
   }
 
+  if (state.isAuth) {
+    return null;
+  }
+
   return (
     <>
       <Header />
       <main className='container bg-purple-200 h-screen flex items-center justify-center'>
-        <form onSubmit={handleSubmit(onSubmit)} className='bg-white w-1/3 shadow-md rounded px-8 pt-6 pb-8'>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='bg-white w-1/3 shadow-md rounded px-8 pt-6 pb-8'
+        >
           <div>
             <label className='block pb-2' htmlFor='email'>
               Email
             </label>
             <input
-              className={`block shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker ${isEmailError ? 'border-red-500' : ''}`}
+              className={`block shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker ${
+                isEmailError ? 'border-red-500' : ''
+              }`}
               type='text'
               name='email'
               id='email'
@@ -52,21 +64,23 @@ export default function Login() {
                 required: true,
                 pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
               })}
+              placeholder='admin@admin.com'
             />
             {errors.email && errors.email.type === 'required' && (
-              <p className="py-1 text-xs text-red-500">Email is required.</p>
+              <p className='py-1 text-xs text-red-500'>Email is required.</p>
             )}
             {errors.email && errors.email.type === 'pattern' && (
-              <p className="py-1 text-xs text-red-500">Email is not valid.</p>
+              <p className='py-1 text-xs text-red-500'>Email is not valid.</p>
             )}
-
           </div>
           <div>
             <label className='block pt-2 pb-2' htmlFor='password'>
               Password
             </label>
             <input
-              className={`block shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker ${isPasswordError ? 'border-red-500' : ''}`}
+              className={`block shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker ${
+                isPasswordError ? 'border-red-500' : ''
+              }`}
               type='password'
               name='password'
               id='password'
@@ -74,16 +88,21 @@ export default function Login() {
                 required: true,
                 minLength: 5,
               })}
+              placeholder='admin'
             />
             {errors.password && errors.password.type === 'required' && (
-              <p className="py-1 text-xs text-red-500">Password is required.</p>
+              <p className='py-1 text-xs text-red-500'>Password is required.</p>
             )}
             {errors.password && errors.password.type === 'minLength' && (
-              <p className="py-1 text-xs text-red-500">Password length should be at least 5 characters.</p>
+              <p className='py-1 text-xs text-red-500'>
+                Password length should be at least 5 characters.
+              </p>
             )}
           </div>
           {isUserOrPassMissMatch && (
-            <p className="py-1 text-xs text-red-500">User/Password didn't match.</p>
+            <p className='py-1 text-xs text-red-500'>
+              User/Password didn't match.
+            </p>
           )}
           <button
             disabled={formState.isSubmitting}
